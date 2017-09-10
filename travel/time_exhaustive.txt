@@ -1,0 +1,65 @@
+Timestamp_0 for 6 cities = 0.000768 seconds 
+Timestamp_1 for 6 cities = 0.000755 seconds 
+Timestamp_2 for 6 cities = 0.000761 seconds 
+Timestamp_3 for 6 cities = 0.000761 seconds 
+Timestamp_4 for 6 cities = 0.000800 seconds 
+Timestamp_5 for 6 cities = 0.000797 seconds 
+Timestamp_6 for 6 cities = 0.000765 seconds 
+Timestamp_7 for 6 cities = 0.000767 seconds 
+Timestamp_8 for 6 cities = 0.000761 seconds 
+Timestamp_9 for 6 cities = 0.000804 seconds 
+
+Time average for 6 cities = 0.000774 seconds 
+
+Timestamp_0 for 7 cities = 0.006466 seconds 
+Timestamp_1 for 7 cities = 0.006041 seconds 
+Timestamp_2 for 7 cities = 0.006001 seconds 
+Timestamp_3 for 7 cities = 0.005874 seconds 
+Timestamp_4 for 7 cities = 0.005696 seconds 
+Timestamp_5 for 7 cities = 0.005524 seconds 
+Timestamp_6 for 7 cities = 0.005739 seconds 
+Timestamp_7 for 7 cities = 0.005251 seconds 
+Timestamp_8 for 7 cities = 0.005271 seconds 
+Timestamp_9 for 7 cities = 0.005244 seconds 
+
+Time average for 7 cities = 0.005711 seconds 
+
+Timestamp_0 for 8 cities = 0.046863 seconds 
+Timestamp_1 for 8 cities = 0.053538 seconds 
+Timestamp_2 for 8 cities = 0.048114 seconds 
+Timestamp_3 for 8 cities = 0.047166 seconds 
+Timestamp_4 for 8 cities = 0.045091 seconds 
+Timestamp_5 for 8 cities = 0.049329 seconds 
+Timestamp_6 for 8 cities = 0.055258 seconds 
+Timestamp_7 for 8 cities = 0.050179 seconds 
+Timestamp_8 for 8 cities = 0.045907 seconds 
+Timestamp_9 for 8 cities = 0.047393 seconds 
+
+Time average for 8 cities = 0.048884 seconds 
+
+Timestamp_0 for 9 cities = 0.462603 seconds 
+Timestamp_1 for 9 cities = 0.460555 seconds 
+Timestamp_2 for 9 cities = 0.456702 seconds 
+Timestamp_3 for 9 cities = 0.460688 seconds 
+Timestamp_4 for 9 cities = 0.455591 seconds 
+Timestamp_5 for 9 cities = 0.455982 seconds 
+Timestamp_6 for 9 cities = 0.479061 seconds 
+Timestamp_7 for 9 cities = 0.470903 seconds 
+Timestamp_8 for 9 cities = 0.464728 seconds 
+Timestamp_9 for 9 cities = 0.460741 seconds 
+
+Time average for 9 cities = 0.462755 seconds 
+
+Timestamp_0 for 10 cities = 5.008137 seconds 
+Timestamp_1 for 10 cities = 4.997683 seconds 
+Timestamp_2 for 10 cities = 4.926412 seconds 
+Timestamp_3 for 10 cities = 4.953643 seconds 
+Timestamp_4 for 10 cities = 4.954990 seconds 
+Timestamp_5 for 10 cities = 4.967522 seconds 
+Timestamp_6 for 10 cities = 4.981902 seconds 
+Timestamp_7 for 10 cities = 4.999366 seconds 
+Timestamp_8 for 10 cities = 4.983724 seconds 
+Timestamp_9 for 10 cities = 4.975055 seconds 
+
+Time average for 10 cities = 4.974843 seconds 
+

@@ -1,0 +1,90 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage[]{graphicx}
+\usepackage{subcaption}
+\usepackage[]{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{ gensymb }
+\usepackage{parskip}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{green}{rgb}{0,1,0}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{blue},
+    numberstyle=\tiny\color{codepurple},
+    stringstyle=\color{codegreen},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle,language = Python}
+\usepackage[utf8]{inputenc}
+
+\lstset{
+% 	frame = single,
+% 	language = R,
+% 	showstringspaces = false,
+% 	tabsize = 2,
+	otherkeywords = {self},
+	keywordstyle = \color{magenta},
+	identifierstyle=\color{black},
+%	numberstyle = \color{yellow},
+	stringstyle=\color{orange},
+% 	backgroundcolor=\color{backcolour}
+}
+
+\title{Oblig 1 The Traveling Salesman Problem \\
+  \hrulefill\small{ INF4490 }\hrulefill}
+  
+\author{Joseph Knutson \\
+\href{https://github.com/mathhat/}{\texttt{github.com/mathhat}}}
+  
+\begin{document}
+
+\maketitle
+\tableofcontents
+\clearpage
+\section{Introduction}
+\section{Exhaustive search}
+\subsection{Creating the Code}
+Making my Exhaustive Search code began with using the example.py file on the course site which imports the city grid.
+From there I followed the advice of the assignment regarding the itertools module's permutations function. Looping over every sequence and summing the distances for each sequence, the final Exhaustive search function looked something like this:
+\begin{lstlisting}
+    start = time.time()             #start clock
+
+    for sequence in Permutations:   #exhaustive search begins
+	dist = 0
+	for index in range(cities-1):
+	    dist += distances[sequence[index]][sequence[index+1]]
+	dist += distances[sequence[cities-1]][sequence[0]]
+	if dist < best:             #save shortest distance yet
+	    best=dist
+	    best_sequence = sequence
+
+    end = time.time()              #end clock
+    Time = (end-start)             #sum time
+    return(best, best_sequence, Time)
+\end{lstlisting}
+You can observe how it contains a 
+
+
+\subsection{timetable}
+
+
+\end{document}
