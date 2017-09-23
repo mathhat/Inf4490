@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.24)  10 SEP 2017 00:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.24)  21 SEP 2017 01:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -292,9 +292,6 @@ Package: parskip 2001/04/09 non-zero parskip adjustments
 Package color Info: Redefining color red on input line 11.
 Package color Info: Redefining color green on input line 12.
 
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2015/06/04 1.6 listings language file
-)
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks21
@@ -695,48 +692,79 @@ Package gensymb Warning: Not defining \micro.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 76.
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 75.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 76.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 91.
- [2
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 75.
+
+<time_exhaust.png, id=49, 578.16pt x 433.62pt>
+File: time_exhaust.png Graphic file (type png)
+ <use time_exhaust.png>
+Package pdftex.def Info: time_exhaust.png used on input line 90.
+(pdftex.def)             Requested size: 345.0pt x 258.74484pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Overfull \hbox (6.81183pt too wide) in paragraph at lines 95--96
+[]\OT1/cmr/m/n/10 If you go into the time[]exhaustive.txt file (cre-ated by run
+-ning ex-haus-tive[]time.py),
+ []
+
+[2
+
+] [3 <./time_exhaust.png>] [4]
+Overfull \hbox (5.1673pt too wide) in paragraph at lines 132--133
+\OT1/cmr/m/n/10 This sec-tion com-pares my Hill-climber method with the Ex-haus
+-tive Search method
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 139.
+[5
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 91.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 139.
  (./oblig1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 91.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 91.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 139.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 139.
 Package rerunfilecheck Info: File `oblig1.out' has not changed.
-(rerunfilecheck)             Checksum: 49B1E1EB4CE81AD0637603A7E4DD9B46;223.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 91.
+(rerunfilecheck)             Checksum: E8E595AFEBBCAF916BFD05BBC9EA8C1A;345.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 139.
  ) 
 Here is how much of TeX's memory you used:
- 8935 strings out of 493029
- 128937 string characters out of 6136234
- 301713 words of memory out of 5000000
- 12359 multiletter control sequences out of 15000+600000
- 9491 words of font info for 35 fonts, out of 8000000 for 9000
+ 8985 strings out of 493029
+ 129619 string characters out of 6136234
+ 304535 words of memory out of 5000000
+ 12384 multiletter control sequences out of 15000+600000
+ 9837 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,6n,40p,273b,1440s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,6n,42p,273b,1494s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.
-pfb>
-Output written on oblig1.pdf (2 pages, 114977 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on oblig1.pdf (5 pages, 195265 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
- 87 compressed objects within 1 object stream
- 23 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 173 PDF objects out of 1000 (max. 8388607)
+ 146 compressed objects within 2 object streams
+ 45 named destinations out of 1000 (max. 500000)
+ 54 words of extra memory for PDF output out of 10000 (max. 10000000)
 

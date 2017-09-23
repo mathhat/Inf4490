@@ -1,21 +1,21 @@
+####Fix hill climber, it doesn't update best sequence. You should probably debug line by line
 import csv
 import time
 import numpy as np
+np.random.seed(1)
+
 from itertools import permutations
 with open("european_cities.csv", "r") as f:
     data = list(csv.reader(f, delimiter=';'))
 
-def grid(cities,data):
+def distance_matrix(n_cities,data):
     distances = []       #list containing distances between cities
-                                                #This loop shortens the number of cities to the amount we want.
-        for i in range(1,cities+1):
-            distances.append(data[i][0:cities])
-            for j in range(cities):             #This loop turns the distance str values into floating point values
-                distances[i-1][j] = float(distances[i-1][j])
-
-        Permutations = list(permutations(range(0,cities)))      #Here we create all possible permutations of n-city objects (paths)
-    return(Permutations, distances)
-
+                         #This loop shortens the number of cities to the amount we want.
+    for i in range(1,n_cities+1):
+        distances.append(data[i][0:n_cities])
+        for j in range(n_cities):             #This loop turns the distance str values into floating point values
+            distances[i-1][j] = float(distances[i-1][j])
+    return distances
 
 #### Let's start from barcelona (reduces paths by a factor of n cities)
 
@@ -30,29 +30,29 @@ def barcelona(Permutations):
 
 #### This is a chaotic plot that helps us conclude to not optimize further.
 '''
-def mirrorplot():
+from matplotlib.pyplot import *
+
+def mirrorplot(n_cities,Permutations):
 
     mirror = []
     for first_half in Permutations[0:(len(Permutations)/2)]:
         i = 0
         for sequence in Permutations:
-            if list(reversed(sequence[1:cities])) == list(first_half[1:cities]):
+            if list(reversed(sequence[1:n_cities])) == list(first_half[1:n_cities]):
                 print(i)
                 mirror.append(i)
                 break
             else:
                 i+=1
-    from matplotlib.pyplot import *
     plot(range(0,len(Permutations)/2),mirror)
     xlabel("Index of original Path")
     ylabel("Index of duplicate Path")
     show()
-
-
 '''
 
                                                 #return best sequence, distance traveled, time passed
-def exhaustive(Permutations, distances,cities):
+def exhaustive(Permutations, distances,n_cities):
+
     Time = 0
     best = np.inf
     best_sequence = []
@@ -60,9 +60,9 @@ def exhaustive(Permutations, distances,cities):
 
     for sequence in Permutations:   #exhaustive search begins
         dist = 0
-        for index in range(cities-1):
+        for index in range(n_cities-1):
             dist += distances[sequence[index]][sequence[index+1]]
-        dist += distances[sequence[cities-1]][sequence[0]]
+        dist += distances[sequence[n_cities-1]][sequence[0]]
         if dist < best:             #save shortest distance yet
             best=dist
             best_sequence = sequence
@@ -70,5 +70,39 @@ def exhaustive(Permutations, distances,cities):
     end = time.time()              #end clock
     Time = (end-start)             #sum time
     return(best,best_sequence, Time)
+#
 
 
+def hillclimb(distances, n_cities):             #Largely inspired by the book example
+    
+    sequence = np.asarray(range(n_cities))
+    np.random.shuffle(sequence)  #random initial state
+    
+    i = 0
+
+    
+    distanceTravelled = np.inf
+
+    while i < 1000:
+        newDistanceTravelled = 0
+        # Choose cities to swap
+ 
+        city1 = np.random.randint(n_cities)
+        city2 = np.random.randint(n_cities)
+        if city1 != city2:
+            i += 1
+            # Reorder the set of cities
+            possibleSequence = sequence.copy()
+            possibleSequence = np.where(possibleSequence==city1,-1, possibleSequence)
+            possibleSequence = np.where(possibleSequence==city2,city1, possibleSequence)
+            possibleSequence = np.where(possibleSequence==-1,city2, possibleSequence)
+            
+            # Work out the new distances
+            # This can be done more efficiently
+            for j in range(n_cities-1):
+                newDistanceTravelled += distances[possibleSequence[j]][possibleSequence[j+1]]
+            newDistanceTravelled += distances[possibleSequence[-1]][possibleSequence[0]]
+            if newDistanceTravelled < distanceTravelled:
+                distanceTravelled = newDistanceTravelled
+                sequence = possibleSequence
+    return sequence, distanceTravelled
