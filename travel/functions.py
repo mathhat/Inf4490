@@ -2,7 +2,6 @@
 import csv
 import time
 import numpy as np
-np.random.seed(1)
 
 from itertools import permutations
 with open("european_cities.csv", "r") as f:
@@ -73,24 +72,30 @@ def exhaustive(Permutations, distances,n_cities):
 #
 
 
-def hillclimb(distances, n_cities):             #Largely inspired by the book example
-    
-    sequence = np.asarray(range(n_cities))
-    np.random.shuffle(sequence)  #random initial state
-    
-    i = 0
+def hillclimb(distances, n_cities,seed):             #Largely inspired by the book example
+    np.random.seed(seed)  #updating seed gives different initial sequences per run
 
+    sequence = np.asarray(range(n_cities))      #order of which cities we visit 
+
+    np.random.shuffle(sequence)  #create a random initial order, from this -
+                                 #order we make small hillclimbing changes
     
-    distanceTravelled = np.inf
+    distanceTravelled = np.inf   #this variable will be updated to the shortest path yet found
+
+    i = 0                        #counter/loop variable to signify when we've made 1000 changes
 
     while i < 1000:
-        newDistanceTravelled = 0
+        newDistanceTravelled = 0 
+        #declared numeric variable to compare a new -
+        #path length to the previously shortest path.
+        
         # Choose cities to swap
- 
-        city1 = np.random.randint(n_cities)
-        city2 = np.random.randint(n_cities)
-        if city1 != city2:
-            i += 1
+        city1 = np.random.randint(n_cities)     #2 random integers represents cities 
+        city2 = np.random.randint(n_cities)     #-who's place in the initial path - 
+                                                #are to be switched/reordered   
+        if city1 != city2:                      
+            i += 1              #If the cities are not the same, the operation is counted
+                                #- because we wish to do this a limited amont of times (1000)
             # Reorder the set of cities
             possibleSequence = sequence.copy()
             possibleSequence = np.where(possibleSequence==city1,-1, possibleSequence)
@@ -98,11 +103,11 @@ def hillclimb(distances, n_cities):             #Largely inspired by the book ex
             possibleSequence = np.where(possibleSequence==-1,city2, possibleSequence)
             
             # Work out the new distances
-            # This can be done more efficiently
-            for j in range(n_cities-1):
+
+            for j in range(n_cities-1): #Here I simply sum up the distance of the path like in exhaustive search
                 newDistanceTravelled += distances[possibleSequence[j]][possibleSequence[j+1]]
             newDistanceTravelled += distances[possibleSequence[-1]][possibleSequence[0]]
             if newDistanceTravelled < distanceTravelled:
                 distanceTravelled = newDistanceTravelled
                 sequence = possibleSequence
-    return sequence, distanceTravelled
+    return sequence, distanceTravelled          #returns both path distance and which order the cities are traveled to

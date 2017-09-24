@@ -45,7 +45,6 @@
 	keywordstyle = \color{magenta},
 	identifierstyle=\color{black},
 %	numberstyle = \color{yellow},
-	stringstyle=\color{orange},
 % 	backgroundcolor=\color{backcolour}
 }
 
@@ -60,8 +59,8 @@
 \maketitle
 \tableofcontents
 \clearpage
-\section{Introduction}
 \section{Exhaustive search}
+This section guides you through the code, efficiency and result of the exhaustive search method for the traveling salesman problem.
 \subsection{Creating the Code}
 Making my Exhaustive Search code began with using the example.py file on the course site which imports the city grid.
 From there I followed the advice of the assignment regarding the itertools module's permutations function. Looping over every sequence and summing the distances for each sequence, the final Exhaustive search function looked something like this:
@@ -127,7 +126,128 @@ If we place the 10 cities' names in the order that creates the shortest path, we
 \begin{lstlisting}
 Copenhagen Hamburg Brussels Dublin Barcelona Belgrade Istanbul Bucharest Budapest Berlin 
 \end{lstlisting}
+\clearpage
+\section{Hillclimber}
+This section compares my Hillclimber method with the Exhaustive Search method from the previous assignment. The method I've written is heavily inspired by the course book's (\emph{Machine Learning}) example.
+The Hillclimber method tries to find a maxima or a minima of a fitness function by slightly tweaking the parameters of the problem in random ways, for our problem the tweaks involve reordering the sequence of cities we travel to.
+Like the example in the book, I pick any two random cities in an initially created path and switch their order of travel.
+\subsection{Code}
+\begin{lstlisting}[language = Python]
+#Inspired by the book example
 
+def hillclimb(distances, n_cities,seed):
+    np.random.seed(seed)
+    #updating seed gives different initial sequences per run
 
+				      #order of cities we visit 
+    sequence = np.asarray(range(n_cities)) 
+
+    np.random.shuffle(sequence)  #create an initial path, from 
+                                 #this order make small changes
+    
+    distanceTravelled = np.inf   #variable updated to shortest path
+
+    i = 0                    #loop variable to signify 1000 changes
+
+    while i < 1000:
+        newDist = 0 
+	
+        #declaring variable to compare a new-
+        #path to the previously shortest path.
+       
+        #Choose 2 random integers representing cities and change  
+        #the initial path by switching/reordering their position
+        city1 = np.random.randint(n_cities)     
+        city2 = np.random.randint(n_cities) 
+        
+        if city1 != city2:                      
+            i += 1              
+
+            #If the cities are not the same, the we switch
+            #their position and count this  hillclimbing operation
+            
+            posSeq = sequence.copy()
+            posSeq = np.where(posSeq==city1,-1, posSeq)
+            posSeq = np.where(posSeq==city2,city1, posSeq)
+            posSeq = np.where(posSeq==-1,city2, posSeq)
+            
+            #Here I simply sum up the distance of the path like in exhaustive search
+            
+            for j in range(n_cities-1): 
+                newDist += distances[posSeq[j]][posSeq[j+1]]
+            newDist += distances[posSeq[-1]][posSeq[0]]
+            
+            #Now we can compare the old distance with the new path
+            #- created by the hillclimbing operation above
+            
+            if newDist < distanceTravelled: 
+                distanceTravelled = newDist
+                sequence = posSeq
+    return sequence, distanceTravelled          #returns both path distance and which order the cities are traveled to
+\end{lstlisting}
+
+\subsection{Results}
+For the hillclimbing method, we measured the distance traveled instead of the time it takes to run the program (almost instantaneous).
+As you can see from the while loop in the code above, I use the hillclimbing operator 1000 times for each run, and I run the program 20 times for both $$\text{n\_cities} = 10 \text{ and } \text{n\_cities} = 24.$$
+This produces a heap of results from which we can pick the longest distance (worst result) and the shortest distance (solution) and even calculate the standard deviation.
+
+To do distance measurements and write them to file i simply import the hillclimber function and call it 20 times.
+
+The following code can be found in \emph{hillclimbing\_dist.py} and the results are precalculated
+in the text files: \emph{dist\_hillclimber10cities.txt} and \emph{dist\_hillclimber10cities.txt}.
+\begin{lstlisting}[language = Python]
+ for i in range(n_sims):                          #n_sims = 20
+    seq, dist =  hillclimb(distances, n_cities,i) #i is also used as a seed
+    lengths[i]=dist
+
+lengths=sorted(lengths) #sorting the results
+
+File = open("dist_hillclimber%scities.txt" % n_cities, "w")   
+
+for i in range(len(lengths)):
+    File.write("%.2f"%lengths[i])
+    File.write("\n"%lengths[i])
+
+File.write("\n"%lengths[i])
+File.write("standard dev = %.2f"%standard_dev)
+\end{lstlisting}
+After writing the distances to file, we can print them in the terminal:
+
+\begin{lstlisting}
+$ cat dist_hillclimber10cities.txt 
+7486.31
+7486.31
+7486.31
+7486.31
+7503.10
+7503.10
+7503.10
+7503.10
+7503.10
+7503.10
+7503.10
+7737.95
+7737.95
+7737.95
+7737.95
+7737.95
+7737.95
+7737.95
+8349.94
+8349.94
+
+standard dev = 209.85
+\end{lstlisting}
+The standard deviation $$ \sigma = \sqrt{ \left[ E(x^2) - (E(x))^2 \right] }$$
+where E is the mean operator, x is an array of the distances and x$^2$ is an array of the distance elements squared.
+Implemented in, the standard deviation of our results look like this:
+\begin{lstlisting}[language = Python]
+Mean = np.mean(lengths)
+Mean_sq = np.mean(lengths*lengths)
+standard_dev = np.sqrt(Mean_sq-Mean**2)
+\end{lstlisting}
+Which returns the values:
+$\sigma(\text{n\_sims} = 20, \text{ n\_cities} = 10) = 209.85$ and \\
+$\sigma(\text{n\_sims} = 20, \text{ n\_cities} = 24) = 961.10$
 
 \end{document}
