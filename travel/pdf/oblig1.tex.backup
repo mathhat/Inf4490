@@ -237,17 +237,54 @@ $ cat dist_hillclimber10cities.txt
 8349.94
 
 standard dev = 209.85
+
+$ cat dist_hillclimber24cities.txt 
+13456.51
+13650.46
+13665.88
+13806.32
+13817.47
+14119.10
+14190.63
+14209.14
+14305.25
+14314.38
+14394.55
+14410.91
+14665.60
+15329.68
+15575.97
+15695.83
+16062.43
+16256.35
+16317.54
+16381.76
+
+standard dev = 961.10
 \end{lstlisting}
-The standard deviation $$ \sigma = \sqrt{ \left[ E(x^2) - (E(x))^2 \right] }$$
-where E is the mean operator, x is an array of the distances and x$^2$ is an array of the distance elements squared.
-Implemented in, the standard deviation of our results look like this:
+The standard deviation from these results can be expressed as $$ \sigma = \sqrt{ \left[ E(x^2) - (E(x))^2 \right] }$$
+where E is the mean operator, x is the array of the distance of the paths found and x$^2$ is an array of these distances squared.
+Implemented, the standard deviation of our results look like this:
 \begin{lstlisting}[language = Python]
 Mean = np.mean(lengths)
 Mean_sq = np.mean(lengths*lengths)
 standard_dev = np.sqrt(Mean_sq-Mean**2)
 \end{lstlisting}
-Which returns the values:
+These expressions return the standard deviation values: \\
 $\sigma(\text{n\_sims} = 20, \text{ n\_cities} = 10) = 209.85$ and \\
-$\sigma(\text{n\_sims} = 20, \text{ n\_cities} = 24) = 961.10$
+$\sigma(\text{n\_sims} = 20, \text{ n\_cities} = 24) = 961.10$ \\
+
+One unique seed is used for each of the 20 simulations/hillclimb calls, from \\seed $= 1$ to seed $= 20$.
+
+Compared to the exhaustive search method, we easily solve the n\_city $= 10$ problem by achieving a distance of 7486.31.
+We need a smarter algorithm, or more than 20 unique initial paths to solve the problem for all 24 cities when using hillclimbing, however.
+Since I've implemented a hillclimber which only has 1 populant and 1 offspring, I am stuck in a local maximum.
+
+\section{Genetic Algorithm}
+To solve the TSP, we're going to use partially mapped crossover.
+
+
+
+
 
 \end{document}

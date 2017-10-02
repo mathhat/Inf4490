@@ -111,3 +111,85 @@ def hillclimb(distances, n_cities,seed):             #Largely inspired by the bo
                 distanceTravelled = newDistanceTravelled
                 sequence = possibleSequence
     return sequence, distanceTravelled          #returns both path distance and which order the cities are traveled to
+
+
+def partially_mapped(parents, distances, n_cities, n_pop):
+    
+    offspring = np.zeros((n_pop,n_cities),int)    #matrix n_population x n_cities
+
+    for iterations in range(n_pop):
+        #Choosing parents to mate
+        parent12 = np.random.randint(0,n_pop,2,int)
+        parent1 = min(parent12)
+        parent2 = max(parent12)
+        #Choosing interval of chromosome to cross over
+        #indexes = np.random.randint(0,8,2,int)
+        #index1 = min(indexes)
+        #index2 = max(indexes)
+        index1 = np.random.randint(0,n_cities)
+        index2 = index1+2
+        if (index1 != index2) and (parent1 != parent2) :  #Making sure parents are different and -
+            #Here starts the partially mapped crosseover
+
+            #initial kids are identical to parents
+
+            offspring[parent1] = parents[parent1]
+            offspring[parent2] = parents[parent2]
+
+
+            #crossover genomes/sequences
+            genome1 = parents[parent1][index1:index2]
+            genome2 = parents[parent2][index1:index2]
+            
+
+            #inserting genomes
+            offspring[parent1][index1:index2] = genome2 #offspring 1 gets sequence from parent 2
+            offspring[parent2][index1:index2] = genome1 #offspring 2 gets sequence from parent 1
+            #crossover from parents to offspring 1
+            for i in range(len(genome2)):
+                if genome1[i] in genome2:
+                    pass
+                else:
+                    gene = genome2[i]
+                    success = 0
+                    while success == False:
+
+                        if gene == genome2[np.where(genome1==gene)]:
+                            success = True
+                            pass
+                        if gene in genome1:
+                            gene = genome2[np.where(genome1==gene)]
+                            #genomeswitch = genome1
+                            #genome1 = genome2
+                            #genome2 = genomeswitch
+                        else:
+                            offspring[parent1][np.where(parents[parent1]==gene)] = genome1[i]
+                            success = True
+    return offspring
+
+def sort(pop_matrix,distances):
+    population = []
+    path_lengths = []
+    pop_matrix = pop_matrix[0]
+
+    n_cities = len(pop_matrix[0])
+    for sequence in pop_matrix:   #exhaustive search begins
+        dist = 0
+        if sum(sequence)>0:
+            for index in range(n_cities-1):
+                dist += distances[sequence[index]][sequence[index+1]]
+            dist += distances[sequence[n_cities-1]][sequence[0]]
+            population.append(sequence)
+            path_lengths.append(dist)
+
+    population = np.asarray(population)
+    path_lengths = np.asarray(path_lengths)
+
+    ranked_paths = []
+    ranked_sequences = []
+    for i in range(len(population)):
+        ranked_paths.append(np.amin(path_lengths))
+        ranked_sequences.append(population[np.argmin(path_lengths)])
+        path_lengths = np.delete(path_lengths, np.argmin(path_lengths))
+        
+    return np.asarray(ranked_paths), np.asarray(ranked_sequences)
