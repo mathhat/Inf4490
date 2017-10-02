@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.24)  25 SEP 2017 23:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.24)  2 OCT 2017 18:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -748,24 +748,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 273--276
  []
 
 [7] [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 353.
- [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 353.
+Underfull \hbox (badness 10000) in paragraph at lines 376--378
+
+ []
+
+[9] [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 456.
+ [11
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 456.
  (./oblig1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 353.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 353.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 456.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 456.
 Package rerunfilecheck Info: File `oblig1.out' has not changed.
-(rerunfilecheck)             Checksum: C4AF128C4359A551504106FD4F3D1CE7;609.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 353.
+(rerunfilecheck)             Checksum: 04F059CDB9DCD50217226D40A5C57646;625.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 456.
  ) 
 Here is how much of TeX's memory you used:
- 9237 strings out of 493029
- 133177 string characters out of 6136234
- 409541 words of memory out of 5000000
- 12455 multiletter control sequences out of 15000+600000
+ 9385 strings out of 493029
+ 135175 string characters out of 6136234
+ 427541 words of memory out of 5000000
+ 12517 multiletter control sequences out of 15000+600000
  9837 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,6n,42p,273b,1894s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,6n,42p,278b,1894s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -782,10 +789,10 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on oblig1.pdf (9 pages, 233568 bytes).
+Output written on oblig1.pdf (11 pages, 246046 bytes).
 PDF statistics:
- 428 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
- 223 named destinations out of 1000 (max. 500000)
+ 537 PDF objects out of 1000 (max. 8388607)
+ 500 compressed objects within 5 object streams
+ 309 named destinations out of 1000 (max. 500000)
  94 words of extra memory for PDF output out of 10000 (max. 10000000)
 

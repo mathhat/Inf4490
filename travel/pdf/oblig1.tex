@@ -283,12 +283,14 @@ Since I've implemented a hillclimber which only has 1 populant and 1 offspring, 
 \section{Genetic Algorithm}
 To solve the TSP, we're going to use partially mapped crossover with two parents and one offspring.
 After creating offspring by using the PMX operations as many times as there are parents, I am left with
-an amount of offspring of a lesser or equal amount of the parents. From the offspring and parents, I choose elitism, and only pick the fittest.
-The population is held constant and my population values 10, 100 and 1000.
+as many offspring as parents. From the offspring and parents, I choose elitism, and only pick the fittest.
+This defines 1 generation, but since my last delivery I now run 10 generations per run instead of 1.
+The population is held constant and my 3 tested population values are 10, 100 and 1000.
 \subsection{PMX code}
-The code was written just now and I haven't had the time to comment properly on it, but I hope it is sligthly readable:
+The partially\_mapped function defines most of what happens in my ga.py script, but the function is found in functions.py: this is how it looks
 \begin{lstlisting}[language = Python]
- def partially_mapped(parents, distances, n_cities, n_pop):
+ 
+def partially_mapped(parents, distances, n_cities, n_pop):
     
     offspring = np.zeros((n_pop,n_cities),int)    #matrix n_population x n_cities
 
@@ -297,8 +299,6 @@ The code was written just now and I haven't had the time to comment properly on 
         parent12 = np.random.randint(0,n_pop,2,int)
         parent1 = min(parent12)
         parent2 = max(parent12)
-        #Choosing interval of chromosome to cross over
-
         index1 = np.random.randint(0,n_cities)
         index2 = index1+2
         if (index1 != index2) and (parent1 != parent2) :  #Making sure parents are different and -
@@ -306,47 +306,152 @@ The code was written just now and I haven't had the time to comment properly on 
 
             #initial kids are identical to parents
 
-            offspring[parent1] = parents[parent1]
-            offspring[parent2] = parents[parent2]
+            offspring[iterations] = parents[parent1]
 
 
             #crossover genomes/sequences
             genome1 = parents[parent1][index1:index2]
             genome2 = parents[parent2][index1:index2]
-            
 
             #inserting genomes
-            offspring[parent1][index1:index2] = genome2 #offspring 1 gets sequence from parent 2
-            offspring[parent2][index1:index2] = genome1 #offspring 2 gets sequence from parent 1
-            #crossover from parents to offspring 1
+            offspring[iterations][index1:index2] = genome2 
+            #offspring 1 gets sequence from parent 2
+            #crossover from parents to offspring:
             for i in range(len(genome2)):
-                if genome1[i] in genome2:
+                if genome1[i] in genome2: 
+                    #instance where gene in crossover 
+                    #- sequence must be ignored
                     pass
                 else:
+                    #Here the fun pinball dynamics take place
                     gene = genome2[i]
                     success = 0
                     while success == False:
-
                         if gene == genome2[np.where(genome1==gene)]:
                             success = True
                             pass
-                        if gene in genome1:
+                        if gene in genome1: #This thing removes infinite loops
                             gene = genome2[np.where(genome1==gene)]
-                            #genomeswitch = genome1
-                            #genome1 = genome2
-                            #genome2 = genomeswitch
                         else:
-                            offspring[parent1][np.where(parents[parent1]==gene)] = genome1[i]
+                            offspring[iterations][np.where(parents[parent1]==gene)] = genome1[i]
                             success = True
     return offspring
+    \end{lstlisting}
+After the code creates offspring n\_pop times by crossing over parents, the offspring is returned, assembled with the parents, sorted and then checked for elimination. 
+My sorting function takes a matrix filled with the parents and offspring combined and arranges the solutions by shortest path length:
+\begin{lstlisting}[language = Python]
+ def sort(pop_matrix,distances): 
+    population = []     #best solutions
+    path_lengths = []   #way of finding best solutions
+    pop_matrix = pop_matrix[0] 
+
+    n_cities = len(pop_matrix[0]) #city number
+    for sequence in pop_matrix:   #first calculate path lenths
+        dist = 0
+        if sum(sequence)>0:       #ignores sequences like [0,0,0,0,0]
+            for index in range(n_cities-1):
+                dist += distances[sequence[index]][sequence[index+1]]
+            dist += distances[sequence[n_cities-1]][sequence[0]]
+            population.append(sequence)
+            path_lengths.append(dist)
+
+    population = np.asarray(population)
+    path_lengths = np.asarray(path_lengths)
+
+    ranked_paths = []
+    ranked_sequences = []
+    for i in range(len(population)): #then arrange them in diminishing order
+        ranked_paths.append(np.amin(path_lengths))
+        ranked_sequences.append(population[np.argmin(path_lengths)])
+        path_lengths = np.delete(path_lengths, np.argmin(path_lengths)) 
+        
+    return np.asarray(ranked_paths), np.asarray(ranked_sequences) 
 \end{lstlisting}
-After the code creates offspring n\_pop times by crossing over parents, the offspring is returned, assembled with the parents, sorted and then checked for elimination.
-The population is held static by elimination. The mating is then resumed for another generation to go by.
 
-\subsection{results}
-to be continued
 
-\section{Hybrid}
+
+The population is held static by elimination. The mating is then resumed for another generation to go by. In my program \emph{ga.py} the number of generations per run is set to 10.
+This means n\_pop pmx operations followed by 1 filtering will happen 10 times per run.
+\subsection{Results}
+By running my ga.py script, three files are produced which return all sequences and their lengths in an ordered fashion. These files are already produced in my folder and possess names like \emph{GA\_result\_of\_10cities\_and\_1000populants.txt}:
+\\
+\begin{lstlisting}
+These are the results for a poplation of size 1000 who 20 times have jumped 10 generations.
+For each generation, 1000 PMX operations create as many offspring as parents.
+After each 1000 PMX operation, an elitist filter is applied to keep the population static and only the best solutions available. 
+The sequences are printed to terminal since I'm having trouble writing them to file.
+path lengths in increasing order: 
+path lengths    sequences: 
+  7486.31        9452683701  #1st/best
+  7486.31        9783102546
+  7486.31        8127039465
+  7486.31        8179345260
+  7486.31        3125798046
+  7486.31        1073862549
+  7663.51        9452687301
+  7663.70        9452863701
+  7729.01        9452867301
+  7775.10        3086795241
+	    [...]
+  12818.33        9841052673 #1000th / worst
+\end{lstlisting}
+Here's the final result of the GA using 24 cities and 1000 populants with 10 generations per run, for 20 runs. \emph{GA\_result\_of\_24cities\_and\_1000populants.txt}:
+
+\begin{lstlisting}
+These are the results for a poplation of size 1000 who 20 times have jumped 10 generations.
+[...] path lengths in increasing order: 
+13915.25 #1st
+13915.25
+14746.64
+14746.64
+16138.36
+16138.36
+16138.36
+16138.36
+16138.36
+[...]
+30347.27 #1000th
+\end{lstlisting}
+
+From these results we can see that the best solution for the TSP is reachable.
+\clearpage
+\section{Results Across Methods}
+As I've understood from the assignment, I am to pick the best individuals of the population for every run (20) and present the best, worst and their standard deviation.
+For low populations, the best individual tends to stay the same, which is why the standard deviation goes towards zero. 
+
+Here's data from the GA:
+\begin{lstlisting}
+10 cities, 10 populants
+('best of the 20 individuals', 9737.3999999999996)
+('worst of the 20 individuals', 9737.3999999999996)
+('standard dev of 20 best individuals', 0.00017263349150062197)
+10 cities, 100 populants
+('best of the 20 individuals', 7503.1000000000004)
+('worst of the 20 individuals', 7745.8000000000011)
+('standard dev of 20 best individuals', 52.89523867990529)
+10 cities, 1000 populants
+('best of the 20 individuals', 7486.3099999999995)
+('worst of the 20 individuals', 7767.1600000000008)
+('standard dev of 20 best individuals', 59.641132207667056)
+  
+ 
+24 cities, 10 populants
+('best of the 20 individuals', 27431.400000000005)
+('worst of the 20 individuals', 27431.400000000005)
+('standard dev of 20 best individuals', 0.00034526698300124393)
+24 cities, 100 populants
+('best of the 20 individuals', 18899.630000000001)
+('worst of the 20 individuals', 21879.710000000003)
+('standard dev of 20 best individuals', 750.81412341537668)
+24 cities, 1000 populants
+('best of the 20 individuals', 13915.25)
+('worst of the 20 individuals', 21663.470000000001)
+('standard dev of 20 best individuals', 2109.1238597016604)
+\end{lstlisting}
+From what we see here, a larger population tend to sprout the best individuals, but the standard deviation increases
+since the worst individuals differ largely from the best.
+
+
 
 
 
