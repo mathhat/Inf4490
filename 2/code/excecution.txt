@@ -1,0 +1,29 @@
+At the bottom of movements.py, the mlp class is initialized.
+Below the commented out kfold section you will find call statements.
+
+Running the movements.py file will automatically trigger
+the earlystopper function which is using 10 hidden nodes 
+(can be edited in movements.py
+
+As the program runs, the terminal will print the accuracy progression
+and in the end, a validation and test call at the bottom of the file
+will evaluate the final accuracy.
+
+You can comment out the earlystopper and call the train
+function intead (#net.train(....)) if you want to run for a fixed number
+of iterations.
+
+Finally, if you want to run the k-folds, simply remove the comments
+surrounding it ('''). I advise you to reduce the amount of hidden nodes to 6
+for k = 30. Mess around with its parameters as you'd like. It prints
+the best model, its accuracy (on the k vectors not used for training),
+the average accuracy, and the variance of the k_times vectors (set to 10).
+
+Also, when running the k-fold, the model is running locally,
+which means that our test calls at the bottom of the movements.py file
+will evaluate an untrained network, returning horrendous accuracies.
+The fold however prints out its own accuracies, so simply comment out 
+net.confusion(test,test_targets) and
+net.confusion(valid,valid_targets) at line (104-105)
+
+when uncommenting and running the kfold.

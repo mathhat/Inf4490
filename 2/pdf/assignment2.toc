@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Initialization}{3}{section.1}
+\contentsline {section}{\numberline {2}Forward Movement}{4}{section.2}
+\contentsline {section}{\numberline {3}Backward Movement, Train and Recall}{4}{section.3}
+\contentsline {section}{\numberline {4}Confusion Matrices}{5}{section.4}
+\contentsline {section}{\numberline {5}Earlystopping}{6}{section.5}
+\contentsline {section}{\numberline {6}K folds}{7}{section.6}
+\contentsline {section}{\numberline {7}Results and Hidden Nodes}{8}{section.7}
+\contentsline {subsection}{\numberline {7.1}Best K-Fold Model}{9}{subsection.7.1}

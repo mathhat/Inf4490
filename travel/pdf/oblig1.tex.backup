@@ -414,10 +414,21 @@ These are the results for a poplation of size 1000 who 20 times have jumped 10 g
 \end{lstlisting}
 
 From these results we can see that the best solution for the TSP is reachable.
+
+
+\begin{figure}[h!]\centering
+\includegraphics[width = \linewidth]{fitness24} 
+\caption{Indeed, we see a diminishing average path length for the population for each run of the GA algorithm.}
+\label{fig:time_exhaust}
+\end{figure}
+
 \clearpage
 \section{Results Across Methods}
 As I've understood from the assignment, I am to pick the best individuals of the population for every run (20) and present the best, worst and their standard deviation.
 For low populations, the best individual tends to stay the same, which is why the standard deviation goes towards zero. 
+
+
+
 
 Here's data from the GA:
 \begin{lstlisting}
@@ -447,11 +458,57 @@ Here's data from the GA:
 ('best of the 20 individuals', 13915.25)
 ('worst of the 20 individuals', 21663.470000000001)
 ('standard dev of 20 best individuals', 2109.1238597016604)
+\end{lstlisting}
+From what we see here, a larger population tend to sprout the best individuals, but the standard deviation increases
+since the worst individuals differ largely from the best.
+
+The best solution for the TSP is found for 10 cities, but not for 24 with the GA. The Hillclimber, however, does slightly better than the GA on the 24 city problem and uses less mutations/operations to do so!
+
+Timewise, the GA uses less than 1 second for populations below 100 populants, but for 1000 (which seems necessary for the best solutions), the script uses about 13 seconds, while exhaustive search uses 5 seconds.
+This means that GA is a good idea when you have more than 10 cities to go to, but for 10 cities, the exhaustive search is a good idea.
+
+All in all, the hillclimber is the fastest and its solution for 24 cities is better than the GA. As you probably know, exhaustive search is not applicable to the 24 city problem.
+Hillclimber wins (perhaps due to a bad GA on my side).
+\clearpage
+\section{Hybrid}
+Unable to find a proper definition for Balwinian learning online, I believe I must settle for a Lamarckian method where I for each run mutate my population with the hillclimber.
+This mutation will help genetic variation as well as average fitness, since my hillclimber always returns a better individual.
 
 
+\subsection{Results}
+\begin{lstlisting}
+10 cities, 10 populants
+('best of the 20 individuals', 7486.3100000000004)
+('worst of the 20 individuals', 12893.459999999999)
+('standard dev of 20 best individuals', 1654.7905677257222)
+10 cities, 100 populants
+('best of the 20 individuals', 7549.1599999999999)
+('worst of the 20 individuals', 12741.6)
+('standard dev of 20 best individuals', 1544.5079162030734)
+10 cities, 1000 populants
+('best of the 20 individuals', 7486.3099999999995)
+('worst of the 20 individuals', 12985.280000000001)
+('standard dev of 20 best individuals', 1324.8932242520507)
+
+24 cities, 10 populants
+('best of the 20 individuals', 16445.420000000002)
+('worst of the 20 individuals', 27191.360000000008)
+('standard dev of 20 best individuals', 2859.7024777331267)
+24 cities, 100 populants
+('best of the 20 individuals', 14773.569999999998)
+('worst of the 20 individuals', 21609.950000000001)
+('standard dev of 20 best individuals', 2077.5917025485683)
+24 cities, 1000 populants
+('best of the 20 individuals', 16489.220000000001)
+('worst of the 20 individuals', 25019.879999999997)
+('standard dev of 20 best individuals', 2200.0371211447409)
 \end{lstlisting}
 
 
-
+\begin{figure}[h!]\centering
+\includegraphics[width = \linewidth]{fitness242} 
+\caption{Hybrid GA with Lamarckian learning is doing better over time, but is worse than pure GA, probably a failure on my side.}
+\label{fig:time_exhaust}
+\end{figure}
 
 \end{document}

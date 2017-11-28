@@ -3,8 +3,8 @@ import time
 import numpy as np
 from itertools import permutations
 from matplotlib.pyplot import *
-from functions import distance_matrix, partially_mapped, sort
-np.random.seed(0)
+from functions import distance_matrix, partially_mapped, sort, hillclimb2
+np.random.seed(5)
 
 with open("european_cities.csv", "r") as f:
     data = list(csv.reader(f, delimiter=';'))
@@ -13,7 +13,6 @@ n_cities =24
 distances = distance_matrix(n_cities,data)
 
 n_pop = [10,100,1000]
-n_pop = [1000]
 n_sims = 20      # runs
 generations = 10 # generations per run
 
@@ -27,16 +26,6 @@ for N_pop in n_pop:
         parents[i]= range(n_cities)
 
         np.random.shuffle(parents[i])
-
-    File = open("GA_result_of_%scities_and_%dpopulants.txt" % (n_cities,N_pop), "w")   
-    File.write("These are the results for a poplation of size %d who %d times have jumped %d generations."%(N_pop,n_sims,generations))
-    File.write("\n")
-    File.write("For each generation, %d PMX operations create as many offspring as parents."%N_pop)
-    File.write("\n")
-    File.write("After each %d PMX operation, an elitist filter is applied to keep the population static and only the best solutions available. "%N_pop)
-    File.write("\n")
-    File.write("The sequences are printed to terminal since I'm having trouble writing them to file.")
-    File.write("\n")
     best = [] #this boy picks the best of each simulation
     strd = 0  #this guy is for standard error measurements
     means = []
@@ -58,15 +47,19 @@ for N_pop in n_pop:
             parents = []
             for i in range(N_pop):
                 parents.append(population[i])
+    
+        for populant in range(N_pop): 
+            parents[populant], path_lengths[populant] =  hillclimb2(parents[populant],distances)
+
             
         means.append(np.mean(path_lengths))
         best.append(path_lengths[0]) #collecting shit for standard deviation
-    print means
-    plot(range(n_sims),means)
+    '''plot(range(n_sims),means)
     title("Average fitness for 24 Cities problem")
     xlabel("Run")
     ylabel("Average fitness")
     show()
+    '''
     best = np.asarray(best)
     print "%d cities, %d populants" % (n_cities,N_pop)
     print("best of the 20 individuals", min(best))
@@ -76,12 +69,3 @@ for N_pop in n_pop:
     Mean_sq = np.mean(best*best)
     standard_dev = np.sqrt(Mean_sq-Mean**2)
     print("standard dev of 20 best individuals", standard_dev)
-
-    File.write("path lengths    sequences: ")
-    File.write("\n")
-
-    for i in range(N_pop):
-        sequence = ''.join(str(number) for number in parents[i])
-        File.write("  %.2f        %s" % (path_lengths[i], sequence))
-        File.write("\n"% path_lengths[i])
-    File.write(" ")

@@ -7,7 +7,7 @@ from functions import distance_matrix, hillclimb
 with open("european_cities.csv", "r") as f:
     data = list(csv.reader(f, delimiter=';'))
 
-n_cities = 10
+n_cities = 24
 
 n_sims = 20
 

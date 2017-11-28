@@ -1,8 +1,8 @@
-task 1: To run the exhaustive search method and measure the time it uses on the first 6 to 10 cities, simply run "python exhaustive_time.py" in the terminal.
+Task 3 and 4 are now done. The data files (.txt) in this folder are explained and illustrated throughout the pdf, so worry not with them.
 
-task 2: Similarly for task two, run "python hillclimbing_dist.py" to produce distance data and standard deviation calculations.
+the ga.py script is modifiable for how many cities you want to run for and the population numbers for both ga and hybrid.py are set to [10,100,1000].
+ calling from terminal:
 
-task 3: To run the genetic algorithm, simply enter "python ga.py" into the terminal. 
-
-task 4: Returning from my vacation yesterday, I have run out of time, by believe I could finish this if given 24 more hours. Sorry to ask for this.
+task 3: "python ga.py"
+task 4: "python hybrid.py"
 

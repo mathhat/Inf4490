@@ -182,3 +182,41 @@ def sort(pop_matrix,distances):
         path_lengths = np.delete(path_lengths, np.argmin(path_lengths)) 
         
     return np.asarray(ranked_paths), np.asarray(ranked_sequences)
+
+
+
+
+def hillclimb2(sequence,distances):             #same as above, but called differently
+    distanceTravelled = np.inf   #this variable will be updated to the shortest path yet found
+
+    i = 0                        #counter/loop variable to signify when we've made 1000 changes
+    n_cities = len(sequence)
+    while i < 2:
+        
+        newDistanceTravelled = 0 
+        #declared numeric variable to compare a new -
+        #path length to the previously shortest path.
+        
+        # Choose cities to swap
+        city1 = np.random.randint(n_cities)     #2 random integers represents cities 
+        city2 = np.random.randint(n_cities)     #-who's place in the initial path - 
+                                                #are to be switched/reordered   
+        if city1 != city2:                      
+            i += 1                        #- because we wish to do this a limited amont of times (1000)
+            # Reorder the set of cities
+            possibleSequence = sequence.copy()
+            possibleSequence = np.where(possibleSequence==city1,-1, possibleSequence)
+            possibleSequence = np.where(possibleSequence==city2,city1, possibleSequence)
+            possibleSequence = np.where(possibleSequence==-1,city2, possibleSequence)
+            
+            # Work out the new distances
+
+            for j in range(n_cities-1): #Here I simply sum up the distance of the path like in exhaustive search
+                newDistanceTravelled += distances[possibleSequence[j]][possibleSequence[j+1]]
+            newDistanceTravelled += distances[possibleSequence[-1]][possibleSequence[0]]
+            if newDistanceTravelled < distanceTravelled:
+                distanceTravelled = newDistanceTravelled
+                sequence = possibleSequence
+                              #If the cities are not the same, the operation is counted
+
+    return sequence, distanceTravelled          #returns both path distance and which order the cities are traveled to
